@@ -2,6 +2,7 @@ package com.smart.smartcontactmanager.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,7 +13,7 @@ import jakarta.persistence.Column;
 public class Contact {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    int cid;
+    int cId;
     String name;
     String nickname;
     String email;
@@ -20,8 +21,10 @@ public class Contact {
     String image;
     @Column(length=500)
     String about;
-    public Contact(int cid, String name, String nickname, String email, String work, String image, String about) {
-        this.cid = cid;
+    @ManyToOne
+    User user;
+    public Contact(int cId, String name, String nickname, String email, String work, String image, String about) {
+        this.cId = cId;
         this.name = name;
         this.nickname = nickname;
         this.email = email;
@@ -31,8 +34,8 @@ public class Contact {
     }
     public Contact() {
     }
-    public void setCid(int cid) {
-        this.cid = cid;
+    public void setcId(int cId) {
+        this.cId = cId;
     }
     public void setName(String name) {
         this.name = name;
@@ -52,8 +55,8 @@ public class Contact {
     public void setAbout(String about) {
         this.about = about;
     }
-    public int getCid() {
-        return cid;
+    public int getcId() {
+        return cId;
     }
     public String getName() {
         return name;

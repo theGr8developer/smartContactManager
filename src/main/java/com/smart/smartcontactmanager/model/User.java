@@ -1,11 +1,14 @@
 package com.smart.smartcontactmanager.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import java.util.*;
 
 @Entity
 @Table(name="user_table")
@@ -23,6 +26,8 @@ public class User {
     String role;
     boolean enable;
     String phone;
+    @OneToMany(cascade = CascadeType.ALL,mappedBy="user")
+    List<Contact>user_contacts = new ArrayList<>();
     public User(int id, String name, String email, String password, String image, String about, String role,
             boolean enable, String phone) {
         this.id = id;
