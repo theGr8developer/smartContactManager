@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="base::layout(~{::section})">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{base::layout(~{::section})}">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,27 +17,31 @@
                         </div>
                         <h1  class="text-center" >Register Here!!</h1>
                         <form th:action="@{/do_register}" method="post" th:object="${user}">
+                            <!--error-->
+                            <div th:if="${session.message}" class="alert alert-primary" role="alert" th:text="${session.message.content}">
+                                
+                              </div>
                             <!-- name -->
                             <div class="form-group">
                                 <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control" name="name" id="name">
+                                <input type="text" class="form-control" name="name" id="name" th:value="${user.name}"/>
                             </div>
                             <!-- email -->
                             <div class="form-group">
                                 <label for="email" class="form-label">Your Email</label>
-                                <input type="email" class="form-control" name="email" id="email">
+                                <input type="email" class="form-control" name="email" id="email" th:value="${user.email}"/>
                             </div>
                             <!-- password -->
                             <div class="form-group">
                                 <label for="password" class="form-label ">Your Password</label>
-                                <input type="password" class="form-control " name="password" id="password">
+                                <input type="password" class="form-control " name="password" id="password"/>
                             </div>
                             <!-- about -->
                                 <div class="form-group mt-4">
-                                  <textarea class="form-control" name="about"  rows="7" placeholder="Write about yourself"></textarea>
+                                  <textarea class="form-control" name="about"  rows="7" placeholder="Write about yourself" th:value="${user.about}"></textarea>
                                 </div>
                                 <div class="form-check my-2">
-                                    <input class="form-check-input" type="checkbox" value="" id="agreement">
+                                    <input class="form-check-input" type="checkbox" value="" id="agreement" name="agreement">
                                     <label class="form-check-label" for="agreement">
                                       Agree term and conditions
                                     </label>
