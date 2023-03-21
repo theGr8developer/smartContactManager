@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,7 +17,8 @@ import com.smart.smartcontactmanager.dao.UserRepository;
 import com.smart.smartcontactmanager.helper.Message;
 import com.smart.smartcontactmanager.model.*;
 
-import jakarta.servlet.http.HttpSession;;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;;
 
 @Controller
 public class HomeController {
@@ -49,15 +51,25 @@ public class HomeController {
 
     @RequestMapping(value="do_register", method=RequestMethod.POST)
 
-    public String registerUser(@ModelAttribute User user,@RequestParam(name = "agreement", defaultValue = "false") boolean agreement,Model model, HttpSession session){
+    public String registerUser(@Valid @ModelAttribute User user,BindingResult result,@RequestParam(name = "agreement", defaultValue = "false") boolean agreement,Model model, HttpSession session ){
 
         try {
+
+            if(result.hasErrors()){
+                model.addAttribute("validationResult", result); 
+                model.addAttribute("user", user);
+                return "signup";
+            }
+            if(!agreement){
+                System.out.println("agreement not accepted");
+                throw new Exception("throw exception because agreement not excepted" + agreement);
+            }
             user.setEnable(true);
             user.setImage("default.png");
             user.setRole("role_model");
             session.setAttribute("message",new Message("this successful message","alert-type"));
             model.addAttribute("user",  new User());
-            User result = this.userrepository.save(user);
+            User saveUser = this.userrepository.save(user);
             System.out.println(user);
             return "signup";
         } catch (Exception e) {
