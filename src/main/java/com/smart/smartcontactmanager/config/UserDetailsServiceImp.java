@@ -16,10 +16,14 @@ public class UserDetailsServiceImp implements UserDetailsService{
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // TODO Auto-generated method stub
         User user = userRepository.getUserByUserName(username);
+        System.out.println("================="+ user.getEmail() +" " + user.getRole()+"=====================================");
         if(username == null){
+            System.out.println("user not found");
             throw new UsernameNotFoundException("username not found");
         }
-        return null;
+
+        CustomUserDetail customUserDetail = new CustomUserDetail(user); 
+        return customUserDetail ;
     }
     
 }

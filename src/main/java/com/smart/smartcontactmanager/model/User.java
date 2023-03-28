@@ -27,7 +27,7 @@ public class User {
     @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message="this is not valid email format")
     String email;
 
-    @Size(min = 4,max = 6,message="size should be between 4 to 6")
+    // @Size(min = 4,max = 6,message="size should be between 4 to 6")
     String password;
     String image;
     @Column(length=500)

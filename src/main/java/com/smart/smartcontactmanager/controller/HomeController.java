@@ -1,7 +1,10 @@
 package com.smart.smartcontactmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +26,15 @@ import jakarta.validation.Valid;;
 @Controller
 public class HomeController {
 
+   
+    // private BCryptPasswordEncoder passwordEncoder2 = new BCryptPasswordEncoder();
+    // @Bean
+    // private BCryptPasswordEncoder encoder() {
+    // return new BCryptPasswordEncoder();
+    // }
+
+    private BCryptPasswordEncoder bpass = new BCryptPasswordEncoder();
+
     @Autowired
     UserRepository userrepository;
 
@@ -43,11 +55,16 @@ public class HomeController {
         model.addAttribute("user",new User() );
         return "signup";
     }
-    @GetMapping("/login")
+    @GetMapping("/signin")
     public String Login(Model model){
         model.addAttribute("title", "Registration Smart Contact manager");
         return "login";
     }
+    // @GetMapping("/dashboard")
+    // public String dashboard(){
+       
+    //     return "dashboard";
+    // }
 
     @RequestMapping(value="do_register", method=RequestMethod.POST)
 
@@ -66,7 +83,13 @@ public class HomeController {
             }
             user.setEnable(true);
             user.setImage("default.png");
-            user.setRole("role_model");
+            user.setRole("USER");
+            System.out.println(user.getPassword());
+            
+        
+                user.setPassword(bpass.encode(user.getPassword()))  ;
+                System.out.println(user.getPassword());
+          
             session.setAttribute("message",new Message("this successful message","alert-type"));
             model.addAttribute("user",  new User());
             User saveUser = this.userrepository.save(user);

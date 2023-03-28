@@ -9,7 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.smart.smartcontactmanager.model.User;
 
-import jakarta.validation.OverridesAttribute.List;
+
 
 public class CustomUserDetail implements UserDetails{
 
@@ -17,6 +17,7 @@ public class CustomUserDetail implements UserDetails{
 
     public CustomUserDetail(User user){
         super();
+        System.out.println("=============custom user detail===============");
         this.user = user;
     }
 
@@ -24,6 +25,8 @@ public class CustomUserDetail implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // TODO Auto-generated method stub
         SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority(user.getRole());
+
+        System.out.println("===============getauthority=== "+simpleGrantedAuthority.getAuthority()+"============");
        
         return List.of(simpleGrantedAuthority);
     }
@@ -44,25 +47,25 @@ public class CustomUserDetail implements UserDetails{
     @Override
     public boolean isAccountNonExpired() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
         // TODO Auto-generated method stub
-        return false;
+        return true;
     }
     
 }
