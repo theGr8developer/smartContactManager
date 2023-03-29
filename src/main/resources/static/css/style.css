@@ -32,3 +32,52 @@ body{
     text-decoration: none !important;
 
   }
+
+  .sidebar{
+    width:15%;
+    background-color:white;
+    height:100vh;
+    padding-top: 40px;
+    position: fixed;
+  }
+
+  .sidebar a{
+    display: block;
+    width: 100%;
+    padding: 10px 25px;
+    text-decoration: none;
+    color: gray;
+  }
+
+  .sidebar a:hover{
+    background-color: #e2e2e2;
+  }
+
+  .content{
+    display:inline;
+    width: 85%;
+  }
+
+  .cross-btn{
+    position: absolute;
+    top:0px;
+    right: 30px;
+    font-size: 40px;
+    cursor:pointer;
+  }
+
+  @media screen and (max-width:600px) {
+    .sidebar{
+      display:none;
+      width:80% !important;
+      background-color: white;
+      position:fixed;
+      padding-top: 20px;
+    }
+
+    .content{
+      margin-left: 0px !important;
+    }
+
+    
+  }

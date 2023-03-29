@@ -55,7 +55,7 @@ public class MyConfig {
         .requestMatchers("/**").permitAll()
         .and().formLogin().loginPage("/signin")
         .loginProcessingUrl("/do-login")
-        .failureUrl("/home").defaultSuccessUrl("/");
+        .failureUrl("/home").defaultSuccessUrl("/user/index");
         
         return http.build();
     }
