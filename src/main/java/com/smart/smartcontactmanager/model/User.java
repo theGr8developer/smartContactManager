@@ -38,8 +38,10 @@ public class User {
     String phone;
     @OneToMany(cascade = CascadeType.ALL,mappedBy="user")
     List<Contact>user_contacts = new ArrayList<>();
-    public User(int id, String name, String email, String password, String image, String about, String role,
-            boolean enable, String phone) {
+    public User(int id, @NotBlank(message = "Not should not be empty") String name,
+            @NotBlank @Email(regexp = "^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", message = "this is not valid email format") String email,
+            String password, String image, @NotBlank(message = "about should not be empty") String about, String role,
+            boolean enable, String phone, List<Contact> user_contacts) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -49,9 +51,12 @@ public class User {
         this.role = role;
         this.enable = enable;
         this.phone = phone;
+        this.user_contacts = user_contacts;
     }
+    
     public User() {
     }
+
     public int getId() {
         return id;
     }
@@ -76,40 +81,56 @@ public class User {
     public boolean isEnable() {
         return enable;
     }
-
-    public String getPhone(){
+    public String getPhone() {
         return phone;
     }
+    public List<Contact> getUser_contacts() {
+        return user_contacts;
+    }
+
     public void setId(int id) {
         this.id = id;
     }
+
     public void setName(String name) {
         this.name = name;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setPassword(String password) {
         this.password = password;
     }
+
     public void setImage(String image) {
         this.image = image;
     }
+
     public void setAbout(String about) {
         About = about;
     }
+
     public void setRole(String role) {
         this.role = role;
     }
+
     public void setEnable(boolean enable) {
         this.enable = enable;
     }
 
-    public void setPhone(String phone){
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    public void setUser_contacts(List<Contact> user_contacts) {
+        this.user_contacts = user_contacts;
+    }
 
+
+    
+    
 
     
 }
